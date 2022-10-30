@@ -45,6 +45,7 @@ public class MaxHeap<T extends Comparable> {
         int idx = size - 1;
         T newValue = heapList.get(idx);
         while (idx > 0 && heapList.get(getParentIdx(idx)).compareTo(newValue) < 0) {
+            // keep looking up the tree using parent node to find the correct index add new value.
             heapList.set(idx, heapList.get(getParentIdx(idx)));
             idx = getParentIdx(idx);
         }
@@ -59,7 +60,7 @@ public class MaxHeap<T extends Comparable> {
             int rightChild = getChild(idx, false);
 
             if (leftChild <= heapLastIdx) { // left child is present for the idx
-                if (rightChild > heapLastIdx) { // there is only left child. Right child idx is after the last idx
+                if (rightChild > heapLastIdx) { // there is only left child. i.e. if Right child idx is after the last idx
                     childToSwap = leftChild;
                 } else { // if both left and right child is present then swap with the highest of both the children
                     T left = heapList.get(leftChild);
@@ -73,7 +74,7 @@ public class MaxHeap<T extends Comparable> {
                 } else {
                     break;
                 }
-                idx = childToSwap; // repeat till the idx doesn't have any children or reach end heap end
+                idx = childToSwap; // repeat till the idx doesn't have any children or reach the heap end
             } else {
                 break; // no children for idx so end the iteration
             }

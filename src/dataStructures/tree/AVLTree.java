@@ -46,18 +46,28 @@ public class AVLTree<T extends Comparable> {
             }
         }
     }
+
+    /**
+     * Right to right rotation
+     * @param currParent
+     * @return
+     */
     private Node rightRotation(Node currParent) {
+        Node leftChild = currParent.left; // take left child for current parent. this would be future parent
+        Node leftRightSubChild = leftChild.right; // take the left subtree and go right. this would be the future left child of the current parent
 
-        Node leftChild = currParent.left;
-        Node leftRightSubChild = leftChild.right;
-
-        leftChild.right = currParent;
-        currParent.left = leftRightSubChild;
+        leftChild.right = currParent; // make current node right of the prev left node.
+        currParent.left = leftRightSubChild; // make this left right sub child as the left child of the current node.
         updateHeight(currParent);
         updateHeight(leftChild);
         return leftChild; // this is now the parent node after right to right rotation
     }
 
+    /**
+     * left to left rotation
+     * @param currParent
+     * @return
+     */
     private Node leftRotation(Node currParent) {
         Node rightChild = currParent.right;
         Node rightLeftSubChild = rightChild.left;
@@ -89,6 +99,7 @@ public class AVLTree<T extends Comparable> {
             if (root.left == null || (getHeight(root.right.right) > getHeight(root.right.left))) {
                 root = leftRotation(root);
             } else {
+                // right to left rotation to balance. First do right to right, then do left to left on the resultant tree.
                 root.right = rightRotation(root.right);
                 root = leftRotation(root);
             }
@@ -96,6 +107,7 @@ public class AVLTree<T extends Comparable> {
             if (root.right == null || (getHeight(root.left.left) > getHeight(root.right.left))) {
                 root = rightRotation(root);
             } else {
+                // left to right rotation
                 root.left = leftRotation(root);
                 root = rightRotation(root);
             }

@@ -20,13 +20,13 @@ public class BinarySearchTreeNode<T extends Comparable<T>> {
 
 
     public void add(T value) {
-        if (this.value.compareTo(value) > 0) {
+        if (this.value.compareTo(value) > 0) { // if value to add is less than this value then go to left subtree
             if (left == null) {
                 left = new BinarySearchTreeNode(value);
             } else {
                 left.add(value);
             }
-        } else if (this.value.compareTo(value) < 0) {
+        } else if (this.value.compareTo(value) < 0) { // if value to add is greater than this value then go to left subtree
             if (right == null) {
                 right = new BinarySearchTreeNode(value);
             } else {
