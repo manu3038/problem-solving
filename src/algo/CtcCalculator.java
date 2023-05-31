@@ -29,7 +29,7 @@ public class CtcCalculator {
         // Income tax calculation for old regime
         BigDecimal firstTaxSlab = percentage(TWO_POINT_FIVE, FIVE);
         BigDecimal reduceTaxFromIncome = taxableIncome.subtract(FIVE); // 2.5 - 5L => 5%
-        BigDecimal secondSlabVal = reduceTaxFromIncome.floatValue() >= FIVE.floatValue() ? FIVE : FIVE.subtract(reduceTaxFromIncome);
+        BigDecimal secondSlabVal = reduceTaxFromIncome.floatValue() >= FIVE.floatValue() ? FIVE : reduceTaxFromIncome;
         BigDecimal secondTaxSlab =  percentage(secondSlabVal, new BigDecimal(20)); // 5-10 => 20%
         reduceTaxFromIncome = secondSlabVal.equals(FIVE) ? reduceTaxFromIncome.subtract(secondSlabVal): BigDecimal.ZERO;
         BigDecimal thirdTaxSlab = percentage(reduceTaxFromIncome, new BigDecimal(30)); // >10 => 30%
